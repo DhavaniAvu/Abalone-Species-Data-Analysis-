@@ -1,5 +1,14 @@
 # Abalone-Species-Data-Analysis
 
+## Data 
+This data was obtained by the UCI Machine Learning Repository. This dataset has information regarding the physical characteristics of abalone such as the sex, height, length, diameter, whole weight, shucked weight, viscera weight, shell weight, rings. 
+
+The terms whole weight refers to the complete weight of the abalone, shucked weight is the weight of meat, viscera weight is the gut weight, shell weight is the weight after the shell has been dried, rings act as a proxy for age and it represents the number of rings counted on abalone’s shell.
+
+The Abalone dataset underwent preprocessing to ensure data integrity, including checking for missing values and maintaining consistent data types. 
+dataset source - https://archive.ics.uci.edu/ml/datasets/abalone
+
+
 ## Project Overview:
 
 This project focuses on the analysis of the Abalone dataset, which contains physical measurements of marine snails. The main goal is to investigate and predict attributes such as age and sex using both statistical and machine learning approaches. The study explores crucial research questions using techniques like regression analysis, decision trees, clustering, and principal component analysis (PCA).
