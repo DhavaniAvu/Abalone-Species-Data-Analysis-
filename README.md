@@ -19,7 +19,7 @@ This project explores statistical modeling and machine learning techniques to pr
 
 - **Abalone-Age-Prediction/**
   - `abalone.csv` — Original dataset (UCI Repository)  
-  - `STAT_FinalProject.R` — R script containing full analysis  
+  - `STAT_FinalProject.Rmd` — Rmd script containing full analysis  
   - `README.md` — Project documentation (this file)  
   - `Visualization Plots/` — (if saved separately)
 
