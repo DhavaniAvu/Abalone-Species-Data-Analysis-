@@ -1,11 +1,11 @@
----
+
 title: "STAT 515 Final Project"
 author: "Dhavani Avu"
 date: "11/05/2023"
 output:
   html_document: default
   pdf_document: default
----
+
 
 
 #Question-1
