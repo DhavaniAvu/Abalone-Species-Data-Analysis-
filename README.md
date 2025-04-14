@@ -1,41 +1,171 @@
-# Abalone-Species-Data-Analysis
+# 🐚 Abalone Age Prediction & Statistical Modeling
 
-## Data 
-This data was obtained by the UCI Machine Learning Repository. This dataset has information regarding the physical characteristics of abalone such as the sex, height, length, diameter, whole weight, shucked weight, viscera weight, shell weight, rings. 
+## 📌 Overview
+This project explores statistical modeling and machine learning techniques to predict the age of abalone using physical measurements. The dataset, obtained from the UCI Machine Learning Repository, contains biological attributes of abalone specimens, including shell measurements and weights. This project aims to investigate relationships, perform variable selection, build various predictive models (linear, polynomial, PCA-based), and evaluate model performance using RMSE, AIC, and visualization tools.
 
-The terms whole weight refers to the complete weight of the abalone, shucked weight is the weight of meat, viscera weight is the gut weight, shell weight is the weight after the shell has been dried, rings act as a proxy for age and it represents the number of rings counted on abalone’s shell.
+---
 
-The Abalone dataset underwent preprocessing to ensure data integrity, including checking for missing values and maintaining consistent data types. 
-dataset source - https://archive.ics.uci.edu/ml/datasets/abalone
+## 🎯 Objectives
+- Predict abalone age using physical measurements through regression analysis.
+- Apply variable selection techniques to improve model performance.
+- Detect multicollinearity and resolve it using PCA and VIF.
+- Evaluate and compare different regression models.
+- Explore relationships between Age and Sex using ANOVA and Chi-square tests.
+- Implement unsupervised learning using K-Prototypes clustering.
+
+---
+
+## 📂 Project Structure
+
+Abalone-Age-Prediction/
+
+── abalone.csv                      # Original dataset (UCI Repository)
+── STAT_FinalProject.R              # R script containing full analysis
+── README.md                        # Project documentation (this file)
+── Visualization Plots              # (if saved separately)
 
 
-## Project Overview:
+---
 
-This project focuses on the analysis of the Abalone dataset, which contains physical measurements of marine snails. The main goal is to investigate and predict attributes such as age and sex using both statistical and machine learning approaches. The study explores crucial research questions using techniques like regression analysis, decision trees, clustering, and principal component analysis (PCA).
+## 📊 Dataset Details
 
-## Research Questions:
+- **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/abalone)
+- **Target Variable:** Rings (Age = Rings + 1.5)
+- **Features:** Sex, Length, Diameter, Height, Whole weight, Shucked weight, Viscera weight, Shell weight
 
-How accurately can the age of an abalone be predicted using its physical measurements?
-What is the relationship between age and sex?
-How do gender and other physical characteristics of abalones relate to each other?
-Can distinct groups of abalones be identified based on shared characteristics?
+---
 
-## Tools and Technologies:
-Programming Languages: Python, R
-Data Manipulation and Analysis: pandas, numpy
-Data Visualization: matplotlib, seaborn, Tableau
-Machine Learning: sklearn, clustMixType
-Statistical Analysis: scipy, statsmodels
-Dimensionality Reduction: PCA
+## 🔍 Exploratory Data Analysis
 
-## Analysis and Techniques:
-The project utilized various statistical and machine learning methods, including:
-Linear Regression: Used to forecast age based on physical measurements.
-Polynomial Regression: Applied to capture non-linear relationships.
-Principal Component Analysis (PCA): Reduced dimensionality and addressed multicollinearity.
-Decision Tree and Random Forest: Utilized for classifying sex based on physical features and assessing variable importance.
-Chi-Square Test: Analyzed the relationship between age and sex.
-K-Prototypes Clustering: Identified distinct groups of abalones based on their physical attributes and sex.
+- Scatter plots & correlation matrices to assess relationships
+- Mahalanobis distance for outlier removal
+- Normalization and feature scaling
+- Feature distributions and skewness examination
 
-## Outcomes and Insights:
-The analysis identified significant correlations between age and sex, and successfully predicted age using physical measurements. It also effectively classified abalone sex based on physical characteristics and discovered distinct groups through clustering techniques. These insights deepen the understanding of abalone biology and have practical applications in marine biology and resource management.
+---
+
+## 🧼 Data Preprocessing
+
+- Removed outliers using Mahalanobis distance
+- Checked for and found no missing values
+- Converted categorical variable `Sex` to factor
+- Created new age groupings: **Young**, **Middle**, **Old**
+
+---
+
+## 🧠 Models & Techniques Used
+
+### 🔹 Linear Regression Models
+
+- **Model 1:** Full MLR with all features  
+- **Model 2:** MLR with selected significant variables  
+- **Model 3:** MLR with interaction terms and polynomial transformation  
+
+**Evaluation:** RMSE, Adjusted R², AIC, cross-validation
+
+---
+
+### 🔹 Polynomial Regression
+
+- Degree-3 polynomials on all features
+- Variants explored (Models 4 & 5) by removing insignificant variables
+- **Model 5** optimized for VIF and AIC
+
+---
+
+### 🔹 Principal Component Analysis (PCA)
+
+- Reduced multicollinearity by using PC1 and PC2 as predictors
+- **Model 6** based on PCA explained ~98% variance
+
+---
+
+### 📈 Model Comparison Summary (RMSE)
+
+| Model | Train RMSE | CV RMSE |
+|-------|------------|---------|
+| M1    | ✅         | ✅      |
+| M2    | ✅         | ✅      |
+| M3    | ✅         | ✅      |
+| M4    | ✅         | ✅      |
+| M5    | ✅         | ✅      |
+
+> **Final Choice:** Model 4 based on best Adjusted R², AIC, and performance tradeoff.
+
+---
+
+## 🧪 Statistical Tests
+
+### ✅ Hypothesis Testing
+
+- **ANOVA:** To evaluate impact of `Sex` on `Rings`
+- **Chi-Square Tests:** To assess relationship between `Sex` and `AgeGroup`
+- **Cramer's V:** Strength of association between categorical variables
+
+#### 💡 Observations
+
+- Including all three `Sex` categories shows strong association with age.
+- Excluding `Infant` group weakens statistical significance.
+- Cramer's V = 0.07 indicates weak association between `AgeGroup` and `Sex` (M/F only)
+
+---
+
+## 🌲 Tree-Based Modeling
+
+### 🌳 Regression Tree (rpart)
+
+- Pruned for optimal complexity parameter `cp`
+- Compared pre- and post-pruning MSE
+
+### 🌲 Random Forest
+
+- Built with 500 trees
+- `Shell_weight` found as the most important predictor
+
+---
+
+## 🔍 Clustering (Unsupervised Learning)
+
+### 💠 K-Prototypes Clustering
+
+- Mixed-type clustering using `Sex`, `Length`, `Diameter`, `Whole_weight`
+- Used `clustMixType` package for categorical + numerical data
+- Visualized 3-cluster solution using `clusplot`
+
+---
+
+## 📉 Visualization Highlights
+
+- Prediction vs Actual plots with `ggplot2`
+- Residuals distribution to validate assumptions
+- Correlation heatmaps and scatter matrix
+- Variable importance from Random Forest
+- Cluster visualizations using `clusplot`
+
+---
+
+## 📌 Key Findings
+
+- `Height`, `Viscera weight`, `Whole weight`, and `Shucked weight` are key predictors of age.
+- Interaction and polynomial models improve performance but at complexity cost.
+- PCA reduces multicollinearity and explains high variance with fewer components.
+- Random Forest confirms `Shell_weight` as most important feature.
+- `Sex` has weak correlation with age when excluding infants.
+- **Final recommendation:** Model 4 (Polynomial Regression) for balanced performance.
+
+---
+
+## 🛠️ Tools & Libraries
+
+- **Language:** R  
+- **Libraries:** `ggplot2`, `caret`, `MASS`, `psych`, `car`, `rpart`, `randomForest`, `clustMixType`, `GGally`, `plotly`, `corrplot`
+
+---
+
+## 👩‍💻 Author
+
+**Dhavani Avu**  
+M.S. Data Analytics Engineering  
+George Mason University
+
+
